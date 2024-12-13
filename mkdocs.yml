@@ -1,0 +1,13 @@
+site_name: Micro YNAB
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - Micro YNAB Docs: README.md
+  - How-To Guides: how-to-guides.md
+  - Reference: reference.md
+  - Contribution: contribution.md
