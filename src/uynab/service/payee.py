@@ -10,11 +10,11 @@ Classes:
 
 Example Usage:
     ```py
-    from uynab.client import AbstractClient
+    from uynab.client import YNABClient
     from uynab.service.payee import PayeeService
 
     # Initialize the API client
-    client = AbstractClient(api_token="your-token")
+    client = YNABClient(api_token="your-token")
 
     # Initialize the PayeeService
     payee_service = PayeeService(client)
@@ -36,11 +36,11 @@ Example Usage:
 
 from __future__ import annotations
 
-from uynab.abstract.client import Client
 from uynab.model.payee import Payee, RequestDataPayee, ResponsePayee, ResponsePayees
+from uynab.service.service import YNABService
 
 
-class PayeeService:
+class PayeeService(YNABService):
     """
     A service for managing payees in the YNAB API.
 
@@ -48,7 +48,7 @@ class PayeeService:
     including fetching all payees, retrieving details for a single payee, and updating payee details.
 
     Attributes:
-        client (AbstractClient): An instance of the YNAB API client used for making requests.
+        client (Client): An instance of the YNAB API client used for making requests.
 
     Methods:
         get_all_payees(budget_id: str) -> list[Payee]:
@@ -57,17 +57,9 @@ class PayeeService:
         get_payee(budget_id: str, payee_id: str) -> Payee:
             Retrieve details for a single payee by ID.
 
-        update_payee(budget_id: str, payee_id: str, data: RequestDataPayee) -> Payee:
-            Update the name of a specific payee.
+        update_payee(budget_id: str, payee_id: str, data: dict) -> Payee:
+            Update the details of a specific payee.
     """
-
-    def __init__(self, client: Client) -> None:
-        """Initialize payee class
-
-        Args:
-            client (AbstractClient): client for comunication with YNAB
-        """
-        self.client = client
 
     def get_all_payees(self, budget_id: str) -> list[Payee]:
         """Fetch all payees for the specic budget
@@ -78,8 +70,8 @@ class PayeeService:
         Returns:
             list[Payee]: List of all payees for specified budget
         """
-        response = ResponsePayees(
-            **self.client.request("GET", f"budgets/{budget_id}/payees")
+        response = self.perform_api_call(
+            ResponsePayees, "GET", f"budgets/{budget_id}/payees"
         )
         return response.data.payees
 
@@ -93,8 +85,8 @@ class PayeeService:
         Returns:
             Payee: Fetched payee
         """
-        response = ResponsePayee(
-            **self.client.request("GET", f"budgets/{budget_id}/payees/{payee_id}")
+        response = self.perform_api_call(
+            ResponsePayee, "GET", f"budgets/{budget_id}/payees/{payee_id}"
         )
         return response.data.payee
 
@@ -116,11 +108,10 @@ class PayeeService:
         Returns:
             Payee: Updated payee
         """
-        response = ResponsePayee(
-            **self.client.request(
-                "PATCH",
-                f"budgets/{budget_id}/payees/{payee_id}",
-                data=RequestDataPayee(**data).model_dump(),
-            )
+        response = self.perform_api_call(
+            ResponsePayee,
+            "PATCH",
+            f"budgets/{budget_id}/payees/{payee_id}",
+            data=RequestDataPayee(**data).model_dump(),
         )
         return response.data.payee

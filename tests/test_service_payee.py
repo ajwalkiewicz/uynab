@@ -32,18 +32,18 @@ def transfer_account_id():
     return uuid.uuid4()
 
 
-def test_get_all_payees(payee_service, mock_client, budget_id, payee_id):
+def test_get_all_payees(payee_service, mock_client, budget_id):
     mock_response = {
         "data": {
             "payees": [
                 {
-                    "id": f"{payee_id}",
+                    "id": f"{uuid.uuid4()}",
                     "name": "Payee 1",
                     "transfer_account_id": None,
                     "deleted": False,
                 },
                 {
-                    "id": f"{payee_id}",
+                    "id": f"{uuid.uuid4()}",
                     "name": "Payee 2",
                     "transfer_account_id": None,
                     "deleted": False,

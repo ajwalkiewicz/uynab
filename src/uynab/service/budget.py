@@ -1,10 +1,7 @@
-from uynab.abstract.client import Client
+from uynab.service.service import YNABService
 
 
-class BudgetService:
-    def __init__(self, client: Client):
-        self.client = client
-
+class BudgetService(YNABService):
     def get_all_budgets(self):
         """Fetch all budgets"""
         return self.client.request("GET", "budgets")

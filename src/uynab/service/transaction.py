@@ -1,6 +1,5 @@
-from uynab.abstract.client import Client
+from uynab.service.service import YNABService
 
 
-class TransactionService:
-    def __init__(self, client: Client):
-        self.client = client
+class TransactionService(YNABService):
+    pass

@@ -1,10 +1,7 @@
-from uynab.abstract.client import Client
+from uynab.service.service import YNABService
 
 
-class CategoryService:
-    def __init__(self, client: Client):
-        self.client = client
-
+class CategoryService(YNABService):
     def get_all_categories(self, budget_id: str):
         """Fetch all categories for the specic budget"""
         return self.client.request("GET", f"budgets/{budget_id}/categories")
