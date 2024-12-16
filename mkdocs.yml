@@ -2,12 +2,28 @@ site_name: Micro YNAB
 
 theme:
   name: "material"
+  features:
+    - content.code.copy
 
 plugins:
   - mkdocstrings
 
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 nav:
-  - Micro YNAB Docs: README.md
+  - About Project: README.md
   - How-To Guides: how-to-guides.md
-  - Reference: reference.md
-  - Contribution: contribution.md
+  - Development:
+    - Contribution: contribution.md
+    - Setting up environment: environment.md
+  - Documentation:
+    - uynab: uynab.md
+    - uynab.service: service.md
+    - uynab.model: model.md 

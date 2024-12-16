@@ -1,4 +1,4 @@
-.PHONY: setup check-uv build test clean clean_venv clean_build clean_cache lint docs
+.PHONY: setup check-uv build test clean clean_venv clean_build clean_cache format docs check docs_serve docs_upload
 
 setup: check-uv uv.lock
 	@echo "Setting up projcet..."
@@ -16,7 +16,7 @@ build: test
 	@echo "Building package..."
 	uv build
 
-test: test/test_*.py
+test: tests/test_*.py
 	@echo "Running tests..."
 	@if ! uv run pytest; then \
 		echo "Tests failed. Building project not possible."; \
@@ -37,12 +37,19 @@ clean_cache:
 	@echo "Removing all cache files and directories int the project..." 
 	find . -name "*cache*" -type d | xargs -t -I {} rm -rf "{}"
 
-lint:
+format:
 	@echo "Formatting project files with ruff..."
 	uv run ruff format
 
+check:
+	@echo "Checking project files with ruff..."
+	uv run ruff check
+
 docs_serve: docs
 	uv run mkdocs serve
+
+docs_upload: docs
+	uv run mkdocs gh-deploy
 
 docs:
 	uv run mkdocs build

@@ -1,17 +1,16 @@
-from uynab.client import YNABClient
+from uynab.abstract.client import Client
 
 
 class CategoryService:
-    def __init__(self, client: YNABClient, budget_id: str):
+    def __init__(self, client: Client):
         self.client = client
-        self.budget_id = budget_id
 
-    def get_all_categories(self):
+    def get_all_categories(self, budget_id: str):
         """Fetch all categories for the specic budget"""
-        return self.client.request("GET", f"budgets/{self.budget_id}/categories")
+        return self.client.request("GET", f"budgets/{budget_id}/categories")
 
-    def get_category(self, category_id: str):
+    def get_category(self, budget_id, category_id: str):
         """Fetch a single budget by ID"""
         return self.client.request(
-            "GET", f"budgets/{self.budget_id}/categories/{category_id}"
+            "GET", f"budgets/{budget_id}/categories/{category_id}"
         )
