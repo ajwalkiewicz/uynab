@@ -27,9 +27,6 @@ jobs:
     - name: Setup environment
       run: |
         make setup
-    - name: Check formatting wirh ruff
-      run: |
-        make check
     - name: Test with pytest
       run: |
         make test

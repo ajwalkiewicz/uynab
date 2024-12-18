@@ -3,39 +3,32 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from uynab.client import APIClientException, YNABClient
+from uynab.client import APIClientException
 from uynab.service.budget import BudgetService
 from uynab.service.category import CategoryService
 from uynab.service.payee import PayeeService
 from uynab.service.transaction import TransactionService
 
 
-@pytest.fixture
-def client():
-    return YNABClient(
-        api_token="test_token", base_url="https://api.youneedabudget.com/v1"
-    )
-
-
-def test_client_initialization(client):
-    assert client.api_token == "test_token"
-    assert client.base_url == "https://api.youneedabudget.com/v1"
-    assert isinstance(client.session, requests.Session)
-    assert client.session.headers["Authorization"] == "Bearer test_token"
-    assert isinstance(client.budget, BudgetService)
-    assert isinstance(client.category, CategoryService)
-    assert isinstance(client.payee, PayeeService)
-    assert isinstance(client.transaction, TransactionService)
+def test_client_initialization(ynab_client):
+    assert ynab_client.api_token == "test_token"
+    assert ynab_client.base_url == "https://api.youneedabudget.com/v1"
+    assert isinstance(ynab_client.session, requests.Session)
+    assert ynab_client.session.headers["Authorization"] == "Bearer test_token"
+    assert isinstance(ynab_client.budget, BudgetService)
+    assert isinstance(ynab_client.category, CategoryService)
+    assert isinstance(ynab_client.payee, PayeeService)
+    assert isinstance(ynab_client.transaction, TransactionService)
 
 
 @patch("uynab.client.requests.Session.request")
-def test_client_request_success(mock_request, client):
+def test_client_request_success(mock_request, ynab_client):
     mock_response = Mock()
     mock_response.ok = True
     mock_response.json.return_value = {"data": "test"}
     mock_request.return_value = mock_response
 
-    response = client.request("GET", "test_endpoint")
+    response = ynab_client.request("GET", "test_endpoint")
 
     assert response == {"data": "test"}
     mock_request.assert_called_once_with(
@@ -44,7 +37,7 @@ def test_client_request_success(mock_request, client):
 
 
 @patch("uynab.client.requests.Session.request")
-def test_client_request_failure(mock_request, client):
+def test_client_request_failure(mock_request, ynab_client):
     mock_response = Mock()
     mock_response.ok = False
     mock_response.json.return_value = {
@@ -55,7 +48,7 @@ def test_client_request_failure(mock_request, client):
     mock_request.return_value = mock_response
 
     with pytest.raises(APIClientException) as excinfo:
-        client.request("GET", "test_endpoint")
+        ynab_client.request("GET", "test_endpoint")
 
     assert str(excinfo.value) == "Error 404: TestError - Test detail"
     mock_request.assert_called_once_with(
@@ -64,7 +57,7 @@ def test_client_request_failure(mock_request, client):
 
 
 @patch("uynab.client.requests.Session.request")
-def test_client_request_failure_unknown_error(mock_request, client):
+def test_client_request_failure_unknown_error(mock_request, ynab_client):
     mock_response = Mock()
     mock_response.ok = False
     mock_response.json.return_value = {}
@@ -73,7 +66,7 @@ def test_client_request_failure_unknown_error(mock_request, client):
     mock_request.return_value = mock_response
 
     with pytest.raises(APIClientException) as excinfo:
-        client.request("GET", "test_endpoint")
+        ynab_client.request("GET", "test_endpoint")
 
     assert str(excinfo.value) == "Error 500: Unknown name - No details"
     mock_request.assert_called_once_with(

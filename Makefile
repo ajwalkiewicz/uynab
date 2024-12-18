@@ -45,6 +45,10 @@ check:
 	@echo "Checking project files with ruff..."
 	uv run ruff check
 
+type:
+	@echo "checking typing with mypy..."
+	uv run mypy .
+
 docs_serve: docs
 	uv run mkdocs serve
 

@@ -26,9 +26,12 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Build release distributions
+      - name: Setup environment
         run: |
           make setup
+
+      - name: Build project
+        run: |
           make build
 
       - name: Upload distributions
@@ -86,6 +89,9 @@ jobs:
   upload-gh-page:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -97,3 +103,5 @@ jobs:
         run: |
           make setup
           make docs_upload
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
