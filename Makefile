@@ -1,4 +1,4 @@
-.PHONY: setup check-uv build test clean clean_venv clean_build clean_cache format docs check docs_serve docs_upload
+.PHONY: setup check-uv build test clean clean_venv clean_build clean_cache format type docs check docs_serve docs_upload
 
 setup: check-uv uv.lock
 	@echo "Setting up projcet..."
@@ -12,7 +12,7 @@ check-uv:
 		curl -LsSf https://astral.sh/uv/install.sh | sh; \
 	fi
 
-build: test
+build: check type test
 	@echo "Building package..."
 	uv build
 
@@ -44,6 +44,10 @@ format:
 check:
 	@echo "Checking project files with ruff..."
 	uv run ruff check
+
+type:
+	@echo "checking typing with mypy..."
+	uv run mypy .
 
 docs_serve: docs
 	uv run mkdocs serve

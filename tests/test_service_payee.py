@@ -1,25 +1,13 @@
 import uuid
-from unittest.mock import MagicMock
 
 import pytest
 
-from uynab.client import YNABClient
 from uynab.service.payee import PayeeService
-
-
-@pytest.fixture
-def mock_client():
-    return MagicMock(spec=YNABClient)
 
 
 @pytest.fixture
 def payee_service(mock_client):
     return PayeeService(mock_client)
-
-
-@pytest.fixture
-def budget_id():
-    return uuid.uuid4()
 
 
 @pytest.fixture

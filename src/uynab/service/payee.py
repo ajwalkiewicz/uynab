@@ -34,7 +34,7 @@ Example Usage:
     ```
 """
 
-from __future__ import annotations
+from uuid import UUID
 
 from uynab.model.payee import Payee, RequestDataPayee, ResponsePayee, ResponsePayees
 from uynab.service.service import YNABService
@@ -51,21 +51,21 @@ class PayeeService(YNABService):
         client (Client): An instance of the YNAB API client used for making requests.
 
     Methods:
-        get_all_payees(budget_id: str) -> list[Payee]:
+        get_all_payees(budget_id: UUID) -> list[Payee]:
             Fetch all payees associated with a specific budget.
 
-        get_payee(budget_id: str, payee_id: str) -> Payee:
+        get_payee(budget_id: UUID, payee_id: UUID) -> Payee:
             Retrieve details for a single payee by ID.
 
-        update_payee(budget_id: str, payee_id: str, data: dict) -> Payee:
+        update_payee(budget_id: UUID, payee_id: UUID, data: dict) -> Payee:
             Update the details of a specific payee.
     """
 
-    def get_all_payees(self, budget_id: str) -> list[Payee]:
+    def get_all_payees(self, budget_id: UUID) -> list[Payee]:
         """Fetch all payees for the specic budget
 
         Args:
-            budget_id (str): An ID for a budget from which all payees will be fetched
+            budget_id (UUID): An ID for a budget from which all payees will be fetched
 
         Returns:
             list[Payee]: List of all payees for specified budget
@@ -75,12 +75,12 @@ class PayeeService(YNABService):
         )
         return response.data.payees
 
-    def get_payee(self, budget_id: str, payee_id: str) -> Payee:
+    def get_payee(self, budget_id: UUID, payee_id: UUID) -> Payee:
         """Fetch a single payee
 
         Args:
-            budget_id (str): An ID for the budget from which payee will be fetched
-            payee_id (str): An ID of a payee to fetch
+            budget_id (UUID): An ID for the budget from which payee will be fetched
+            payee_id (UUID): An ID of a payee to fetch
 
         Returns:
             Payee: Fetched payee
@@ -90,12 +90,12 @@ class PayeeService(YNABService):
         )
         return response.data.payee
 
-    def update_payee(self, budget_id: str, payee_id: str, data: dict) -> Payee:
+    def update_payee(self, budget_id: UUID, payee_id: UUID, data: dict) -> Payee:
         """Update a single payee
 
         Args:
-            budget_id (str): An ID for the budget from which payee will be updated
-            payee_id (str): An ID of a payee to update
+            budget_id (UUID): An ID for the budget from which payee will be updated
+            payee_id (UUID): An ID of a payee to update
             data (dict): Data of payee to update in the following format:
                 ```py
                 {
