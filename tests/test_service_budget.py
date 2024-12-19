@@ -299,6 +299,21 @@ def test_get_budget_by_name(budget_service, mock_client, mock_budget):
     assert budget.name == mock_budget["name"]
 
 
+def test_get_budget_by_name_not_found(budget_service, mock_client, mock_budget):
+    mock_client.request.return_value = {
+        "data": {
+            "budgets": [mock_budget],
+            "default_budget": mock_budget,
+        }
+    }
+    non_existing_budget = "None existing budget"
+
+    with pytest.raises(ValueError) as err:
+        budget_service._get_budget_by_name(non_existing_budget)
+
+    assert str(err.value) == f"Budget '{non_existing_budget}' not found"
+
+
 def test_get_budget_id(budget_service, mock_client, mock_budget):
     mock_client.request.return_value = {
         "data": {
@@ -309,3 +324,18 @@ def test_get_budget_id(budget_service, mock_client, mock_budget):
     budget_id = budget_service._get_budget_id("Test Budget")
 
     assert budget_id == UUID(mock_budget["id"])
+
+
+def test_get_budget_id_not_found(budget_service, mock_client, mock_budget):
+    mock_client.request.return_value = {
+        "data": {
+            "budgets": [mock_budget],
+            "default_budget": mock_budget,
+        }
+    }
+    non_existing_budget = "None existing budget"
+
+    with pytest.raises(ValueError) as err:
+        budget_service._get_budget_id(non_existing_budget)
+
+    assert str(err.value) == f"Budget '{non_existing_budget}' not found"

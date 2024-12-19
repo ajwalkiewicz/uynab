@@ -59,24 +59,26 @@ class BudgetService(YNABService):
             budget_name (str): The name of the budget to retrieve.
         Returns:
             Budget: The budget object with the specified name.
+        Raises:
+            ValueError: If the budget with the given name does not exist.
         """
 
         all_budgets = self.get_all_budgets()
         for budget in all_budgets:
             if budget.name == budget_name:
                 return budget
-        raise ValueError(f"Budget {budget_name} not found")
+        raise ValueError(f"Budget '{budget_name}' not found")
 
-    def _get_budget_id(self, budgate_name: str) -> UUID:
+    def _get_budget_id(self, budget_name: str) -> UUID:
         """
         Retrieve the budget ID for a given budget name.
         Args:
-            budgate_name (str): The name of the budget.
+            budget_name (str): The name of the budget.
         Returns:
             str: The ID of the budget.
         Raises:
             ValueError: If the budget with the given name does not exist.
         """
 
-        budget = self._get_budget_by_name(budgate_name)
+        budget = self._get_budget_by_name(budget_name)
         return budget.id

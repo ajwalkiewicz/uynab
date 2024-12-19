@@ -1,6 +1,6 @@
 # This workflow will install Python dependencies and check formatting with Ruff
 
-name: Type check with
+name: Type check with mypy
 
 on:
   push:
