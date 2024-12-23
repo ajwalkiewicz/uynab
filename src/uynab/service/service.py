@@ -16,7 +16,7 @@ class YNABService:
         client (Client): The client used for communication with YNAB.
 
     Methods:
-        request(model: Model, method: str, endpoint: str, data: dict | None = None) -> dict:
+        perform_api_call(model: Model, method: str, endpoint: str, data: dict | None = None) -> dict:
             Sends a request to the specified endpoint using the given method and data.
     """
 

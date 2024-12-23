@@ -2,7 +2,7 @@ from uuid import UUID
 
 import pytest
 
-from uynab.service.budget import BudgetService
+from uynab.service.budget import BudgetService, BudgetSettings
 
 
 @pytest.fixture
@@ -18,15 +18,15 @@ def mock_budget():
         "last_modified_on": "2024-12-16T19:53:48.861Z",
         "first_month": "2024-12-16",
         "last_month": "2024-12-16",
-        "date_format": {"format": "string"},
+        "date_format": {"format": "2024-12-16"},
         "currency_format": {
-            "iso_code": "string",
-            "example_format": "string",
-            "decimal_digits": 0,
-            "decimal_separator": "string",
-            "symbol_first": True,
-            "group_separator": "string",
-            "currency_symbol": "string",
+            "iso_code": "PLN",
+            "example_format": "123 456,78",
+            "decimal_digits": 2,
+            "decimal_separator": ",",
+            "symbol_first": False,
+            "group_separator": " ",
+            "currency_symbol": " z\u0142",
             "display_symbol": True,
         },
         "accounts": [
@@ -46,19 +46,19 @@ def mock_budget():
                 "last_reconciled_at": "2024-12-16T19:53:48.861Z",
                 "debt_original_balance": 0,
                 "debt_interest_rates": {
-                    "additionalProp1": 0,
-                    "additionalProp2": 0,
-                    "additionalProp3": 0,
+                    "2024-01-01": 0,
+                    "2024-01-02": 0,
+                    "2024-01-03": 0,
                 },
                 "debt_minimum_payments": {
-                    "additionalProp1": 0,
-                    "additionalProp2": 0,
-                    "additionalProp3": 0,
+                    "2024-01-04": 0,
+                    "2024-01-05": 0,
+                    "2024-01-06": 0,
                 },
                 "debt_escrow_amounts": {
-                    "additionalProp1": 0,
-                    "additionalProp2": 0,
-                    "additionalProp3": 0,
+                    "2024-01-07": 0,
+                    "2024-01-08": 0,
+                    "2024-01-09": 0,
                 },
                 "deleted": True,
             }
@@ -86,6 +86,34 @@ def mock_budget():
                 "name": "string",
                 "hidden": True,
                 "deleted": True,
+                "categories": [
+                    {
+                        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "category_group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "category_group_name": "string",
+                        "name": "string",
+                        "hidden": True,
+                        "original_category_group_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                        "note": "string",
+                        "budgeted": 0,
+                        "activity": 0,
+                        "balance": 0,
+                        "goal_type": "TB",
+                        "goal_needs_whole_amount": None,
+                        "goal_day": 0,
+                        "goal_cadence": 0,
+                        "goal_cadence_frequency": 0,
+                        "goal_creation_month": "2024-12-16",
+                        "goal_target": 0,
+                        "goal_target_month": "2024-12-16",
+                        "goal_percentage_complete": 0,
+                        "goal_months_to_budget": 0,
+                        "goal_under_funded": 0,
+                        "goal_overall_funded": 0,
+                        "goal_overall_left": 0,
+                        "deleted": True,
+                    }
+                ],
             }
         ],
         "categories": [
@@ -229,15 +257,15 @@ def mock_budget():
 @pytest.fixture
 def budget_settings():
     return {
-        "date_format": {"format": "string"},
+        "date_format": {"format": "YYYY-MM-DD"},
         "currency_format": {
-            "iso_code": "string",
-            "example_format": "string",
-            "decimal_digits": 0,
-            "decimal_separator": "string",
-            "symbol_first": True,
-            "group_separator": "string",
-            "currency_symbol": "string",
+            "iso_code": "PLN",
+            "example_format": "123 456,78",
+            "decimal_digits": 2,
+            "decimal_separator": ",",
+            "symbol_first": False,
+            "group_separator": " ",
+            "currency_symbol": " z\u0142",
             "display_symbol": True,
         },
     }
@@ -283,7 +311,7 @@ def test_get_budget_settings(budget_service, mock_client, mock_budget, budget_se
 
     settings = budget_service.get_budget_settings(mock_budget["id"])
 
-    assert settings.currency_format == budget_settings["currency_format"]
+    assert settings.currency_format == BudgetSettings(**budget_settings).currency_format
 
 
 def test_get_budget_by_name(budget_service, mock_client, mock_budget):
