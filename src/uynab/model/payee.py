@@ -34,6 +34,7 @@ Example Usage:
     ```
 """
 
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -52,7 +53,7 @@ class Payee(BaseModel):
 
     id: UUID
     name: str
-    transfer_account_id: UUID | None
+    transfer_account_id: Optional[UUID]
     deleted: bool
 
 

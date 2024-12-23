@@ -1,3 +1,12 @@
+"""
+# Service budget module
+
+This module provides the BudgetService class for interacting with budget-related endpoints of the YNAB API.
+
+Classes:
+    BudgetService: A service class for retrieving and managing budgets and their settings.
+"""
+
 from uuid import UUID
 
 from uynab.model.budget import (
