@@ -15,13 +15,15 @@ Classes:
 """
 
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
 
+from .account import Account
 from .category import Category, CategoryGroup
 from .payee import Payee
-from .utils import Account, CurrencyFormat, DateFormat, Month
+from .utils import CurrencyFormat, DateFormat, Month
 
 
 class Budget(BaseModel):
@@ -67,6 +69,16 @@ class Budget(BaseModel):
     scheduled_subtransactions: list[dict]
 
 
+class BudgetSummary(BaseModel):
+    id: UUID
+    name: str
+    last_modified_on: datetime
+    first_month: datetime
+    last_month: datetime
+    date_format: Optional[DateFormat]
+    currency_format: Optional[CurrencyFormat]
+
+
 class ResponseDataBudget(BaseModel):
     """
     ResponseDataBudget is a model representing the response data for a budget.
@@ -100,8 +112,8 @@ class ResponseDataBudgets(BaseModel):
         default_budget (Budget): The default Budget object.
     """
 
-    budgets: list[Budget]
-    default_budget: Budget
+    budgets: list[BudgetSummary]
+    default_budget: Optional[BudgetSummary]
 
 
 class ResponseBudgets(BaseModel):

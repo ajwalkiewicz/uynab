@@ -28,6 +28,7 @@ class Client(ABC):
 
         self.api_token = api_token
         self.base_url = base_url
+        self._verbose = False
 
     @abstractmethod
     def request(

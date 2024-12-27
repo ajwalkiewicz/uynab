@@ -21,7 +21,9 @@ def test_service_request_success():
     response = service.perform_api_call(Model, "GET", "/test-endpoint")
 
     assert response.model_dump() == {"success": True}
-    client_mock.request.assert_called_once_with("GET", "/test-endpoint", None)
+    client_mock.request.assert_called_once_with(
+        "GET", "/test-endpoint", params=None, data=None
+    )
 
 
 def test_service_request_validation_error():
@@ -39,5 +41,5 @@ def test_service_request_validation_error():
         "Response: {'error': True}"
     )
     client_mock.request.assert_called_once_with(
-        "POST", "/test-endpoint", {"key": "value"}
+        "POST", "/test-endpoint", params=None, data={"key": "value"}
     )

@@ -39,6 +39,7 @@ class YNABClient(Client):
         self._category = CategoryService(self)
         self._payee = PayeeService(self)
         self._transaction = TransactionService(self)
+        self._verbose = Config.VERBOSE
 
     def request(
         self,

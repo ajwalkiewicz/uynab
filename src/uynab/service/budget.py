@@ -12,6 +12,7 @@ from uuid import UUID
 from uynab.model.budget import (
     Budget,
     BudgetSettings,
+    BudgetSummary,
     ResponseBudget,
     ResponseBudgets,
     ResponseBudgetSettings,
@@ -20,7 +21,7 @@ from uynab.service.service import YNABService
 
 
 class BudgetService(YNABService):
-    def get_all_budgets(self) -> list[Budget]:
+    def get_all_budgets(self) -> list[BudgetSummary]:
         """
         Retrieve all budgets from the API.
         This method performs an API call to fetch all budgets and returns them as a list of Budget objects.
@@ -61,7 +62,7 @@ class BudgetService(YNABService):
 
     # Not standard methods
 
-    def _get_budget_by_name(self, budget_name: str) -> Budget:
+    def _get_budget_by_name(self, budget_name: str) -> BudgetSummary:
         """
         Retrieve a budget by its name.
         Args:

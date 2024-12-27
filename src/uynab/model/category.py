@@ -14,7 +14,7 @@ Classes:
 Each class uses Pydantic's BaseModel to enforce type validation and provide serialization/deserialization capabilities.
 """
 
-from typing import Optional
+from typing import Literal, Optional
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -56,24 +56,24 @@ class Category(BaseModel):
     category_group_name: str
     name: str
     hidden: bool
-    original_category_group_id: UUID
-    note: str
+    original_category_group_id: Optional[UUID]
+    note: Optional[str]
     budgeted: int
     activity: int
     balance: int
-    goal_type: str = "TB"
+    goal_type: Optional[Literal["TB", "TBD", "MF", "NEED", "DEBT"]]
     goal_needs_whole_amount: Optional[bool]
-    goal_day: int
-    goal_cadence: int
-    goal_cadence_frequency: int
-    goal_creation_month: str
-    goal_target: int
-    goal_target_month: str
-    goal_percentage_complete: int
-    goal_months_to_budget: int
-    goal_under_funded: int
-    goal_overall_funded: int
-    goal_overall_left: int
+    goal_day: Optional[int]
+    goal_cadence: Optional[int]
+    goal_cadence_frequency: Optional[int]
+    goal_creation_month: Optional[str]
+    goal_target: Optional[int]
+    goal_target_month: Optional[str]
+    goal_percentage_complete: Optional[int]
+    goal_months_to_budget: Optional[int]
+    goal_under_funded: Optional[int]
+    goal_overall_funded: Optional[int]
+    goal_overall_left: Optional[int]
     deleted: bool
 
 
