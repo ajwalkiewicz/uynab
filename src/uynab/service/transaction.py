@@ -36,7 +36,8 @@ class TransactionService(YNABService):
 
         Args:
             budget_id (UUID): The unique identifier of the budget.
-            since_date (date, optional): The date from which to retrieve transactions. Defaults to None.
+            since_date (date, optional): The date from which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
             last_knowledge_of_server (int, optional): The last knowledge of the server. Defaults to None.
 
         Returns:
@@ -47,7 +48,7 @@ class TransactionService(YNABService):
             ResponseTransactions,
             "GET",
             f"budgets/{budget_id}/transactions",
-            params=params if params else None,
+            params=params or None,
         )
         return response.data.transactions
 
@@ -79,7 +80,7 @@ class TransactionService(YNABService):
 
         Args:
             budget_id (UUID): The unique identifier of the budget.
-            transaction (NewTransaction): The transaction object to be created.
+            transactions (NewTransaction): The transaction object to be created.
 
         Returns:
             TransactionDetail: The created transaction object.
@@ -105,7 +106,7 @@ class TransactionService(YNABService):
         Args:
             budget_id (UUID): The unique identifier of the budget.
             transaction_id (UUID): The unique identifier of the transaction.
-            transaction (NewTransaction): The transaction object with updated data.
+            transactions (list[NewTransaction]): The transaction object with updated data.
 
         Returns:
             Transaction: The updated transaction object.
@@ -153,7 +154,8 @@ class TransactionService(YNABService):
         Args:
             budget_id (UUID): The unique identifier of the budget.
             account_id (UUID): The unique identifier of the account.
-            since_date (date, optional): The date from which to retrieve transactions. Defaults to None.
+            since_date (date, optional): The date from which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
             last_knowledge_of_server (int, optional): The last knowledge of the server. Defaults to None.
 
         Returns:
@@ -164,7 +166,7 @@ class TransactionService(YNABService):
             ResponseTransactions,
             "GET",
             f"budgets/{budget_id}/accounts/{account_id}/transactions",
-            params=params if params else None,
+            params=params or None,
         )
         return response.data.transactions
 
@@ -181,7 +183,8 @@ class TransactionService(YNABService):
         Args:
             budget_id (UUID): The unique identifier of the budget.
             category_id (UUID): The unique identifier of the category.
-            since_date (date, optional): The date from which to retrieve transactions. Defaults to None.
+            since_date (date, optional): The date from which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
             last_knowledge_of_server (int, optional): The last knowledge of the server. Defaults to None.
 
         Returns:
@@ -192,7 +195,7 @@ class TransactionService(YNABService):
             ResponseTransactions,
             "GET",
             f"budgets/{budget_id}/categories/{category_id}/transactions",
-            params=params if params else None,
+            params=params or None,
         )
         return response.data.transactions
 
@@ -209,7 +212,8 @@ class TransactionService(YNABService):
         Args:
             budget_id (UUID): The unique identifier of the budget.
             payee_id (UUID): The unique identifier of the payee.
-            since_date (date, optional): The date from which to retrieve transactions. Defaults to None.
+            since_date (date, optional): The date from which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
             last_knowledge_of_server (int, optional): The last knowledge of the server. Defaults to None.
 
         Returns:
@@ -220,7 +224,7 @@ class TransactionService(YNABService):
             ResponseTransactions,
             "GET",
             f"budgets/{budget_id}/payees/{payee_id}/transactions",
-            params=params if params else None,
+            params=params or None,
         )
         return response.data.transactions
 
@@ -236,8 +240,10 @@ class TransactionService(YNABService):
 
         Args:
             budget_id (UUID): The unique identifier of the budget.
-            month (date): The month for which to retrieve transactions.
-            since_date (date, optional): The date from which to retrieve transactions. Defaults to None.
+            month (date): The budget month for which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01)
+            since_date (date, optional): The date from which to retrieve transactions.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
             last_knowledge_of_server (int, optional): The last knowledge of the server. Defaults to None.
 
         Returns:
@@ -248,7 +254,7 @@ class TransactionService(YNABService):
             ResponseTransactions,
             "GET",
             f"budgets/{budget_id}/months/{month}/transactions",
-            params=params if params else None,
+            params=params or None,
         )
         return response.data.transactions
 
@@ -260,8 +266,11 @@ class TransactionService(YNABService):
         Prepare a dictionary of parameters for a request.
 
         Args:
-            since_date (date | None): The starting date for the request. If provided, it will be converted to a string.
-            last_knowledge_of_server (int | None): The last known server state. If provided, it will be included as is.
+            since_date (date | None): The starting date for the request.
+                If provided, it will be converted to a string.
+                ISO formatted (e.g. 2024-01-01). Defaults to None.
+            last_knowledge_of_server (int | None): The last known server state.
+                If provided, it will be included as is. Defaults to None.
 
         Returns:
             dict: A dictionary containing the prepared parameters.

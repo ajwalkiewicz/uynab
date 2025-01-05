@@ -45,13 +45,13 @@ class Subtransaction(BaseModel):
     id: UUID
     transaction_id: UUID
     amount: int
-    memo: Optional[str]
-    payee_id: Optional[UUID]
-    payee_name: Optional[str]
-    category_id: Optional[UUID]
-    category_name: Optional[str]
-    transfer_account_id: Optional[UUID]
-    transfer_transaction_id: Optional[UUID]
+    memo: Optional[str] = None
+    payee_id: Optional[UUID] = None
+    payee_name: Optional[str] = None
+    category_id: Optional[UUID] = None
+    category_name: Optional[str] = None
+    transfer_account_id: Optional[UUID] = None
+    transfer_transaction_id: Optional[UUID] = None
     deleted: bool
 
 
@@ -68,10 +68,10 @@ class SaveSubTransaction(BaseModel):
     """
 
     amount: int
-    payee_id: Optional[UUID]
-    payee_name: Optional[str]
-    category_id: Optional[UUID]
-    memo: Optional[str]
+    payee_id: Optional[UUID] = None
+    payee_name: Optional[str] = None
+    category_id: Optional[UUID] = None
+    memo: Optional[str] = None
 
 
 class TransactionDetail(BaseModel):
@@ -107,25 +107,27 @@ class TransactionDetail(BaseModel):
     id: str
     date: date
     amount: int
-    memo: Optional[str]
+    memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[Literal["red", "orange", "yellow", "green", "blue", "purple"]]
-    flag_name: Optional[str]
+    flag_color: Optional[
+        Literal["red", "orange", "yellow", "green", "blue", "purple"]
+    ] = None
+    flag_name: Optional[str] = None
     account_id: UUID
-    payee_id: Optional[UUID]
-    category_id: Optional[UUID]
-    transfer_account_id: Optional[UUID]
-    transfer_transaction_id: Optional[str]
-    matched_transaction_id: Optional[str]
-    import_id: Optional[UUID]
-    import_payee_name: Optional[str]
-    import_payee_name_original: Optional[str]
-    debt_transaction_type: Optional[str]
+    payee_id: Optional[UUID] = None
+    category_id: Optional[UUID] = None
+    transfer_account_id: Optional[UUID] = None
+    transfer_transaction_id: Optional[str] = None
+    matched_transaction_id: Optional[str] = None
+    import_id: Optional[UUID] = None
+    import_payee_name: Optional[str] = None
+    import_payee_name_original: Optional[str] = None
+    debt_transaction_type: Optional[str] = None
     deleted: bool
     account_name: str
-    payee_name: Optional[str]
-    category_name: Optional[str]
+    payee_name: Optional[str] = None
+    category_name: Optional[str] = None
     subtransactions: list[Subtransaction]
 
 
@@ -158,21 +160,23 @@ class TransactionSummary(BaseModel):
     id: str
     date: date
     amount: int
-    memo: Optional[str]
+    memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[Literal["red", "orange", "yellow", "green", "blue", "purple"]]
-    flag_name: Optional[str]
+    flag_color: Optional[
+        Literal["red", "orange", "yellow", "green", "blue", "purple"]
+    ] = None
+    flag_name: Optional[str] = None
     account_id: UUID
-    payee_id: Optional[UUID]
-    category_id: Optional[UUID]
-    transfer_account_id: Optional[UUID]
-    transfer_transaction_id: Optional[str]
-    matched_transaction_id: Optional[str]
-    import_id: Optional[UUID]
-    import_payee_name: Optional[str]
-    import_payee_name_original: Optional[str]
-    debt_transaction_type: Optional[str]
+    payee_id: Optional[UUID] = None
+    category_id: Optional[UUID] = None
+    transfer_account_id: Optional[UUID] = None
+    transfer_transaction_id: Optional[str] = None
+    matched_transaction_id: Optional[str] = None
+    import_id: Optional[UUID] = None
+    import_payee_name: Optional[str] = None
+    import_payee_name_original: Optional[str] = None
+    debt_transaction_type: Optional[str] = None
     deleted: bool
 
 
@@ -198,14 +202,14 @@ class NewTransaction(BaseModel):
     account_id: UUID
     date: date
     amount: int
-    payee_id: Optional[UUID]
-    payee_name: Optional[str]
-    category_id: Optional[UUID]
-    memo: Optional[str]
+    payee_id: Optional[UUID] = None
+    payee_name: Optional[str] = None
+    category_id: Optional[UUID] = None
+    memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[str]
-    import_id: Optional[str]
+    flag_color: Optional[str] = None
+    import_id: Optional[str] = None
     subtransactions: list[SaveSubTransaction]
 
 

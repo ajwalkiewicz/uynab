@@ -50,15 +50,15 @@ class Account(BaseModel):
     type: str
     on_budget: bool
     closed: bool
-    note: Optional[str]
+    note: Optional[str] = None
     balance: int
     cleared_balance: int
     uncleared_balance: int
     transfer_payee_id: UUID
     direct_import_linked: bool
     direct_import_in_error: bool
-    last_reconciled_at: Optional[str]
-    debt_original_balance: Optional[int]
+    last_reconciled_at: Optional[str] = None
+    debt_original_balance: Optional[int] = None
     debt_interest_rates: dict[datetime, int]
     debt_minimum_payments: dict[datetime, int]
     debt_escrow_amounts: dict[datetime, int]

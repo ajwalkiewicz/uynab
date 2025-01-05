@@ -22,33 +22,33 @@ from pydantic import BaseModel
 
 class Category(BaseModel):
     """
-    Represents a financial category within a budgeting application.
+    Category model representing a financial category.
 
     Attributes:
         id (UUID): Unique identifier for the category.
-        category_group_id (UUID): Identifier for the group this category belongs to.
-        category_group_name (str): Name of the group this category belongs to.
+        category_group_id (UUID): Identifier for the category group.
+        category_group_name (str): Name of the category group.
         name (str): Name of the category.
         hidden (bool): Indicates if the category is hidden.
-        original_category_group_id (UUID): Original identifier for the group this category belongs to.
-        note (str): Additional notes about the category.
-        budgeted (int): Amount budgeted for this category.
-        activity (int): Amount of activity (transactions) in this category.
-        balance (int): Current balance of the category.
-        goal_type (str): Type of goal associated with the category. Default is "TB".
+        original_category_group_id (Optional[UUID]): Original identifier for the category group, if any.
+        note (Optional[str]): Additional notes for the category.
+        budgeted (int): Budgeted amount for the category.
+        activity (int): Activity amount for the category.
+        balance (int): Balance amount for the category.
+        goal_type (Optional[Literal["TB", "TBD", "MF", "NEED", "DEBT"]]): Type of goal associated with the category.
         goal_needs_whole_amount (Optional[bool]): Indicates if the goal needs the whole amount.
-        goal_day (int): Day of the month associated with the goal.
-        goal_cadence (int): Cadence of the goal.
-        goal_cadence_frequency (int): Frequency of the goal cadence.
-        goal_creation_month (str): Month when the goal was created.
-        goal_target (int): Target amount for the goal.
-        goal_target_month (str): Target month for the goal.
-        goal_percentage_complete (int): Percentage of the goal that has been completed.
-        goal_months_to_budget (int): Number of months to budget for the goal.
-        goal_under_funded (int): Amount underfunded for the goal.
-        goal_overall_funded (int): Overall amount funded for the goal.
-        goal_overall_left (int): Overall amount left to fund for the goal.
-        deleted (bool): Indicates if the category has been deleted.
+        goal_day (Optional[int]): Day associated with the goal.
+        goal_cadence (Optional[int]): Cadence of the goal.
+        goal_cadence_frequency (Optional[int]): Frequency of the goal cadence.
+        goal_creation_month (Optional[str]): Month when the goal was created.
+        goal_target (Optional[int]): Target amount for the goal.
+        goal_target_month (Optional[str]): Target month for the goal.
+        goal_percentage_complete (Optional[int]): Percentage of goal completion.
+        goal_months_to_budget (Optional[int]): Number of months to budget for the goal.
+        goal_under_funded (Optional[int]): Amount underfunded for the goal.
+        goal_overall_funded (Optional[int]): Overall funded amount for the goal.
+        goal_overall_left (Optional[int]): Overall amount left for the goal.
+        deleted (bool): Indicates if the category is deleted.
     """
 
     id: UUID
@@ -56,24 +56,24 @@ class Category(BaseModel):
     category_group_name: str
     name: str
     hidden: bool
-    original_category_group_id: Optional[UUID]
-    note: Optional[str]
+    original_category_group_id: Optional[UUID] = None
+    note: Optional[str] = None
     budgeted: int
     activity: int
     balance: int
-    goal_type: Optional[Literal["TB", "TBD", "MF", "NEED", "DEBT"]]
-    goal_needs_whole_amount: Optional[bool]
-    goal_day: Optional[int]
-    goal_cadence: Optional[int]
-    goal_cadence_frequency: Optional[int]
-    goal_creation_month: Optional[str]
-    goal_target: Optional[int]
-    goal_target_month: Optional[str]
-    goal_percentage_complete: Optional[int]
-    goal_months_to_budget: Optional[int]
-    goal_under_funded: Optional[int]
-    goal_overall_funded: Optional[int]
-    goal_overall_left: Optional[int]
+    goal_type: Optional[Literal["TB", "TBD", "MF", "NEED", "DEBT"]] = None
+    goal_needs_whole_amount: Optional[bool] = None
+    goal_day: Optional[int] = None
+    goal_cadence: Optional[int] = None
+    goal_cadence_frequency: Optional[int] = None
+    goal_creation_month: Optional[str] = None
+    goal_target: Optional[int] = None
+    goal_target_month: Optional[str] = None
+    goal_percentage_complete: Optional[int] = None
+    goal_months_to_budget: Optional[int] = None
+    goal_under_funded: Optional[int] = None
+    goal_overall_funded: Optional[int] = None
+    goal_overall_left: Optional[int] = None
     deleted: bool
 
 

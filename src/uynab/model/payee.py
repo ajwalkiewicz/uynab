@@ -53,7 +53,7 @@ class Payee(BaseModel):
 
     id: UUID
     name: str
-    transfer_account_id: Optional[UUID]
+    transfer_account_id: Optional[UUID] = None
     deleted: bool
 
 

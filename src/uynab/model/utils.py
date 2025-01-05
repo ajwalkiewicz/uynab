@@ -58,7 +58,7 @@ class Month(BaseModel):
     """
 
     month: datetime
-    note: Optional[str]
+    note: Optional[str] = None
     income: int
     budgeted: int
     activity: int
