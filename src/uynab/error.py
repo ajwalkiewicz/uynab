@@ -4,10 +4,13 @@ class InvalidAPIToken(Exception):
 
 
 class ResponseError(Exception):
-    def __init__(self, response: dict) -> None:
-        super().__init__(
+    def __init__(self, response: dict, verbose: bool = False) -> None:
+        message = (
             "Cannot parse response from server. "
             "If you are sure that the response is correct, "
             "than please report this as a bug. "
-            f"Response: {response}"
         )
+        if verbose:
+            message += f"Response: {response}"
+
+        super().__init__(message)

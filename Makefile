@@ -18,6 +18,13 @@ build: check type test
 
 test: tests/test_*.py
 	@echo "Running tests..."
+	@if ! uv run pytest -m "not slow"; then \
+		echo "Tests failed. Building project not possible."; \
+		exit 1; \
+	fi
+
+test_all: tests/test_*.py
+	@echo "Running all tests..."
 	@if ! uv run pytest; then \
 		echo "Tests failed. Building project not possible."; \
 		exit 1; \

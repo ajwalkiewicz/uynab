@@ -1,4 +1,5 @@
 import uuid
+from datetime import date
 from unittest.mock import MagicMock
 from uuid import UUID
 
@@ -18,7 +19,9 @@ def ynab_client():
 
 @pytest.fixture
 def mock_client():
-    return MagicMock(spec=YNABClient)
+    mock = MagicMock(spec=YNABClient)
+    mock._verbose = False
+    return mock
 
 
 @pytest.fixture
@@ -97,3 +100,133 @@ def category_group_data(category_group_id, category_data):
 @pytest.fixture
 def category_group(category_group_data):
     return CategoryGroup(**category_group_data)
+
+
+@pytest.fixture
+def subtransaction_id():
+    return UUID("8d267248-7a94-467f-a158-93d609f7adf6")
+
+
+@pytest.fixture
+def transaction_detail_id():
+    return "a48fd37c-4619-414d-820f-48a67c779e05"
+
+
+@pytest.fixture
+def subtransaction_data(subtransaction_id):
+    return {
+        "id": subtransaction_id,
+        "transaction_id": "9746a5cd-a3b7-43bc-8a2a-cf76614f2209",
+        "amount": -16090,
+        "memo": "test memo",
+        "payee_id": None,
+        "payee_name": "test payee",
+        "category_id": "a874697b-2b32-4e66-a452-f3b9c6522c36",
+        "category_name": "test category",
+        "transfer_account_id": None,
+        "transfer_transaction_id": None,
+        "deleted": False,
+    }
+
+
+@pytest.fixture
+def savesubtransaction_data():
+    return {
+        "amount": -16090,
+        "payee_id": None,
+        "payee_name": "test payee",
+        "category_id": "a874697b-2b32-4e66-a452-f3b9c6522c36",
+        "memo": "test memo",
+    }
+
+
+@pytest.fixture
+def transaction_detail_data(subtransaction_data, transaction_detail_id):
+    return {
+        "id": transaction_detail_id,
+        "date": date(2024, 12, 21),
+        "amount": -81080,
+        "memo": "test memo",
+        "cleared": "cleared",
+        "approved": True,
+        "flag_color": None,
+        "flag_name": None,
+        "account_id": "8d267248-7a94-467f-a158-93d609f7adf6",
+        "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",
+        "category_id": "cb7d3a9a-392c-4826-bbee-e6448591f475",
+        "transfer_account_id": None,
+        "transfer_transaction_id": None,
+        "matched_transaction_id": None,
+        "import_id": None,
+        "import_payee_name": None,
+        "import_payee_name_original": None,
+        "debt_transaction_type": None,
+        "deleted": False,
+        "account_name": "test account",
+        "payee_name": "test payee",
+        "category_name": "test category",
+        "subtransactions": [subtransaction_data],
+    }
+
+
+@pytest.fixture
+def transaction_summary_data(transaction_detail_id):
+    return {
+        "id": transaction_detail_id,
+        "date": date(2024, 12, 21),
+        "amount": -81080,
+        "memo": "test memo",
+        "cleared": "cleared",
+        "approved": True,
+        "flag_color": None,
+        "account_id": "8d267248-7a94-467f-a158-93d609f7adf6",
+        "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",
+        "category_id": "cb7d3a9a-392c-4826-bbee-e6448591f475",
+        "transfer_account_id": None,
+        "transfer_transaction_id": None,
+        "matched_transaction_id": None,
+        "import_id": None,
+        "import_payee_name": None,
+        "import_payee_name_original": None,
+        "debt_transaction_type": None,
+        "deleted": False,
+    }
+
+
+@pytest.fixture
+def new_transaction_data(transaction_detail_id, subtransaction_data):
+    return {
+        "account_id": transaction_detail_id,
+        "date": date(2024, 12, 21),
+        "amount": -81080,
+        "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",
+        "payee_name": "test payee",
+        "category_id": "cb7d3a9a-392c-4826-bbee-e6448591f475",
+        "memo": "test memo",
+        "cleared": "cleared",
+        "approved": True,
+        "flag_color": None,
+        "import_id": None,
+        "subtransactions": [subtransaction_data],
+    }
+
+
+@pytest.fixture
+def save_transaction_with_id_or_import_id_data(
+    subtransaction_data, transaction_detail_id
+):
+    return {
+        "id": transaction_detail_id,
+        "import_id": None,
+        "account_id": "8d267248-7a94-467f-a158-93d609f7adf6",
+        "date": date(2024, 12, 21),
+        "amount": -81080,
+        "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",
+        "payee_name": "test payee",
+        "category_id": "cb7d3a9a-392c-4826-bbee-e6448591f475",
+        "memo": "test memo",
+        "cleared": "cleared",
+        "approved": True,
+        "flag_color": None,
+        "subtransactions": [subtransaction_data],
+    }

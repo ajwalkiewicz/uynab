@@ -15,13 +15,15 @@ Classes:
 """
 
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
 
+from .account import Account
 from .category import Category, CategoryGroup
 from .payee import Payee
-from .utils import Account, CurrencyFormat, DateFormat, Month
+from .utils import CurrencyFormat, DateFormat, Month
 
 
 class Budget(BaseModel):
@@ -67,6 +69,28 @@ class Budget(BaseModel):
     scheduled_subtransactions: list[dict]
 
 
+class BudgetSummary(BaseModel):
+    """
+    BudgetSummary model representing a summary of a budget.
+    Attributes:
+        id (UUID): Unique identifier for the budget.
+        name (str): Name of the budget.
+        last_modified_on (datetime): Timestamp of the last modification.
+        first_month (datetime): The first month of the budget.
+        last_month (datetime): The last month of the budget.
+        date_format (Optional[DateFormat]): The date format used in the budget.
+        currency_format (Optional[CurrencyFormat]): The currency format used in the budget.
+    """
+
+    id: UUID
+    name: str
+    last_modified_on: datetime
+    first_month: datetime
+    last_month: datetime
+    date_format: Optional[DateFormat] = None
+    currency_format: Optional[CurrencyFormat] = None
+
+
 class ResponseDataBudget(BaseModel):
     """
     ResponseDataBudget is a model representing the response data for a budget.
@@ -96,12 +120,12 @@ class ResponseDataBudgets(BaseModel):
     ResponseDataBudgets is a model representing the response data for budgets.
 
     Attributes:
-        budgets (list[Budget]): A list of Budget objects.
-        default_budget (Budget): The default Budget object.
+        budgets (list[BudgetSummary]): A list of Budget objects.
+        default_budget (Optional[BudgetSummary]): The default Budget object.
     """
 
-    budgets: list[Budget]
-    default_budget: Budget
+    budgets: list[BudgetSummary]
+    default_budget: Optional[BudgetSummary] = None
 
 
 class ResponseBudgets(BaseModel):
