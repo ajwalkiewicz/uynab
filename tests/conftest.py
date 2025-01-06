@@ -209,3 +209,24 @@ def new_transaction_data(transaction_detail_id, subtransaction_data):
         "import_id": None,
         "subtransactions": [subtransaction_data],
     }
+
+
+@pytest.fixture
+def save_transaction_with_id_or_import_id_data(
+    subtransaction_data, transaction_detail_id
+):
+    return {
+        "id": transaction_detail_id,
+        "import_id": None,
+        "account_id": "8d267248-7a94-467f-a158-93d609f7adf6",
+        "date": date(2024, 12, 21),
+        "amount": -81080,
+        "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",
+        "payee_name": "test payee",
+        "category_id": "cb7d3a9a-392c-4826-bbee-e6448591f475",
+        "memo": "test memo",
+        "cleared": "cleared",
+        "approved": True,
+        "flag_color": None,
+        "subtransactions": [subtransaction_data],
+    }

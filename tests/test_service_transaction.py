@@ -4,6 +4,7 @@ import pytest
 
 from uynab.service.transaction import (
     NewTransaction,
+    SaveTransactionWithIdOrImportId,
     TransactionDetail,
     TransactionService,
 )
@@ -22,6 +23,13 @@ def transaction_detail(transaction_detail_data):
 @pytest.fixture
 def new_transaction(new_transaction_data):
     return NewTransaction(**new_transaction_data)
+
+
+@pytest.fixture
+def save_transaction_with_id_or_import_id(
+    save_transaction_with_id_or_import_id_data,
+):
+    return SaveTransactionWithIdOrImportId(**save_transaction_with_id_or_import_id_data)
 
 
 def test_get_all_transactions(transaction_service, mock_client, transaction_detail):
@@ -78,8 +86,29 @@ def test_create_transactions(
     assert created_transaction[0].id == transaction_detail.id
 
 
-def test_update_transactions(
+def test_update_transaction(
     transaction_service, mock_client, new_transaction, transaction_detail
+):
+    budget_id = UUID("12345678-1234-5678-1234-567812345678")
+
+    mock_client.request.return_value = {
+        "data": {
+            "transaction": transaction_detail,
+        },
+    }
+
+    updated_transaction = transaction_service.update_transaction(
+        budget_id, transaction_detail.id, new_transaction
+    )
+
+    assert updated_transaction.id == transaction_detail.id
+
+
+def test_update_transactions(
+    transaction_service,
+    mock_client,
+    save_transaction_with_id_or_import_id,
+    transaction_detail,
 ):
     budget_id = UUID("12345678-1234-5678-1234-567812345678")
 
@@ -92,11 +121,11 @@ def test_update_transactions(
         },
     }
 
-    updated_transaction = transaction_service.update_transactions(
-        budget_id, [new_transaction]
+    updated_transactions = transaction_service.update_transactions(
+        budget_id, [save_transaction_with_id_or_import_id]
     )
 
-    assert updated_transaction[0].id == transaction_detail.id
+    assert updated_transactions[0].id == transaction_detail.id
 
 
 def test_delete_transaction(

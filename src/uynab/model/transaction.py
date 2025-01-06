@@ -208,8 +208,28 @@ class NewTransaction(BaseModel):
     memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[str] = None
+    flag_color: Optional[
+        Literal["red", "orange", "yellow", "green", "blue", "purple"]
+    ] = None
     import_id: Optional[str] = None
+    subtransactions: list[SaveSubTransaction]
+
+
+class SaveTransactionWithIdOrImportId(BaseModel):
+    id: Optional[str] = None
+    import_id: Optional[str] = None
+    account_id: UUID
+    date: date
+    amount: int
+    payee_id: Optional[UUID] = None
+    payee_name: Optional[str] = None
+    category_id: Optional[UUID] = None
+    memo: Optional[str] = None
+    cleared: Literal["cleared", "uncleared", "reconciled"]
+    approved: bool
+    flag_color: Optional[
+        Literal["red", "orange", "yellow", "green", "blue", "purple"]
+    ] = None
     subtransactions: list[SaveSubTransaction]
 
 

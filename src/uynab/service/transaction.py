@@ -19,6 +19,7 @@ from uynab.model.transaction import (
     ResponseSaveTransactions,
     ResponseTransaction,
     ResponseTransactions,
+    SaveTransactionWithIdOrImportId,
     TransactionDetail,
 )
 from uynab.service.service import YNABService
@@ -98,18 +99,17 @@ class TransactionService(YNABService):
         return response.data.transactions
 
     def update_transactions(
-        self, budget_id: UUID, transactions: list[NewTransaction]
+        self, budget_id: UUID, transactions: list[SaveTransactionWithIdOrImportId]
     ) -> list[TransactionDetail]:
         """
-        Update existing transactions in a budget.
+        Updates a list of transactions for a given budget.
 
         Args:
             budget_id (UUID): The unique identifier of the budget.
-            transaction_id (UUID): The unique identifier of the transaction.
-            transactions (list[NewTransaction]): The transaction object with updated data.
+            transactions (list[SaveTransactionWithIdOrImportId]): A list of transactions to be updated.
 
         Returns:
-            Transaction: The updated transaction object.
+            list[TransactionDetail]: A list of updated transaction details.
         """
         data: dict[str, list[dict[str, Any]]] = {"transactions": []}
         for transaction in transactions:
@@ -122,6 +122,30 @@ class TransactionService(YNABService):
             data=data,
         )
         return response.data.transactions
+
+    def update_transaction(
+        self, budget_id: UUID, transaction_id: str, transaction: NewTransaction
+    ) -> TransactionDetail:
+        """
+        Update existing transactions in a budget.
+
+        Args:
+            budget_id (UUID): The unique identifier of the budget.
+            transaction_id (str): The unique identifier of the transaction.
+            transaction (NewTransaction): The transaction object with updated data.
+
+        Returns:
+            Transaction: The updated transaction object.
+        """
+        data: dict[str, dict[Any, Any]] = {"transaction": transaction.model_dump()}
+
+        response = self.perform_api_call(
+            ResponseTransaction,
+            "PATCH",
+            f"budgets/{budget_id}/transactions/{transaction_id}",
+            data=data,
+        )
+        return response.data.transaction
 
     def delete_transaction(
         self, budget_id: UUID, transaction_id: UUID
