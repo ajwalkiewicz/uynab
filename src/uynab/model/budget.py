@@ -20,10 +20,11 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from .account import Account
-from .category import Category, CategoryGroup
-from .payee import Payee
-from .utils import CurrencyFormat, DateFormat, Month
+from uynab.model.account import Account
+from uynab.model.category import Category, CategoryGroup
+from uynab.model.payee import Payee
+from uynab.model.transaction import Subtransaction, TransactionSummary
+from uynab.model.utils import CurrencyFormat, DateFormat, Month
 
 
 class Budget(BaseModel):
@@ -44,8 +45,8 @@ class Budget(BaseModel):
         category_groups (list[CategoryGroup]): A list of category groups in the budget.
         categories (list[Category]): A list of categories in the budget.
         months (list[Month]): A list of months in the budget.
-        transactions (list[dict]): A list of transactions in the budget.
-        subtransactions (list[dict]): A list of subtransactions in the budget.
+        transactions (list[TransactionSummary]): A list of transactions in the budget.
+        subtransactions (list[Subtransaction]): A list of subtransactions in the budget.
         scheduled_transactions (list[dict]): A list of scheduled transactions in the budget.
         scheduled_subtransactions (list[dict]): A list of scheduled subtransactions in the budget.
     """
@@ -63,8 +64,8 @@ class Budget(BaseModel):
     category_groups: list[CategoryGroup]
     categories: list[Category]
     months: list[Month]
-    transactions: list[dict]
-    subtransactions: list[dict]
+    transactions: list[TransactionSummary]
+    subtransactions: list[Subtransaction]
     scheduled_transactions: list[dict]
     scheduled_subtransactions: list[dict]
 

@@ -1,5 +1,5 @@
 """
-# Servce transaction module
+# Service transaction module
 
 This module provides the `TransactionService` class, which is responsible for managing transactions
 within a budget in the YNAB (You Need A Budget) system. The service includes methods to retrieve,

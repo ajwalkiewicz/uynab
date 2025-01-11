@@ -40,7 +40,7 @@ class AccountService(YNABService):
         )
         return response.data.account
 
-    # Not standart methods
+    # Not standard methods
 
     def _get_account_by_name(self, budget_id: UUID, account_name: str) -> Account:
         all_accounts = self.get_all_accounts(budget_id)

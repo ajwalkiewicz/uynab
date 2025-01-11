@@ -6,7 +6,12 @@ theme:
     - content.code.copy
 
 plugins:
-  - mkdocstrings
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            group_by_category: true
+            show_submodules: true
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -19,11 +24,11 @@ markdown_extensions:
 
 nav:
   - About Project: README.md
-  - How-To Guides: how-to-guides.md
+  - Getting Started: getting-started.md
+  - How-To Guides:
+    - Use make: use-make.md
   - Development:
     - Contribution: contribution.md
     - Setting up environment: environment.md
-  - Documentation:
-    - uynab: uynab.md
-    - uynab.service: service.md
-    - uynab.model: model.md 
+  - Documentation: documentation.md
+  - License: license.md

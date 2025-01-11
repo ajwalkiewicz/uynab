@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from .category import Category
+from uynab.model.category import Category
 
 
 class DateFormat(BaseModel):
@@ -11,6 +11,7 @@ class DateFormat(BaseModel):
 
     Attributes:
         format (str): A string representing the date format.
+            For example: "YYYY-MM-DD"
     """
 
     format: str

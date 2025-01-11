@@ -200,7 +200,7 @@ def mock_budget():
                 "transfer_account_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "transfer_transaction_id": "string",
                 "matched_transaction_id": "string",
-                "import_id": "string",
+                "import_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "import_payee_name": "string",
                 "import_payee_name_original": "string",
                 "debt_transaction_type": "payment",
@@ -209,8 +209,8 @@ def mock_budget():
         ],
         "subtransactions": [
             {
-                "id": "string",
-                "transaction_id": "string",
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "transaction_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "amount": 0,
                 "memo": "string",
                 "payee_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -218,7 +218,7 @@ def mock_budget():
                 "category_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "category_name": "string",
                 "transfer_account_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                "transfer_transaction_id": "string",
+                "transfer_transaction_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "deleted": True,
             }
         ],

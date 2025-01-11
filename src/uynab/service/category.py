@@ -6,7 +6,7 @@ within a budget in the YNAB (You Need A Budget) application.
 
 Classes:
     CategoryService: A service class for retrieving category groups and categories
-    from a specified budget.
+        from a specified budget.
 """
 
 from uuid import UUID
@@ -24,7 +24,7 @@ class CategoryService(YNABService):
     def get_all_categories(self, budget_id: UUID) -> list[CategoryGroup]:
         """
         Retrieve all category groups for a given budget.
-        Inside the gategory group there are categories.
+        Inside the category group there are categories.
 
         Args:
             budget_id (UUID): The unique identifier of the budget.
