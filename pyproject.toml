@@ -11,6 +11,26 @@ dependencies = [
     "pydantic>=2.10.3",
     "requests>=2.32.3",
 ]
+keywords = ["money", "budget", "YNAB", "API", "SDK"]
+classifiers = [
+  # How mature is this project?
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Documentation = "https://ajwalkiewicz.github.io/uynab/"
+Repository = "https://github.com/ajwalkiewicz/uynab"
+Issues = "https://github.com/ajwalkiewicz/uynab/issues"
 
 [build-system]
 requires = ["hatchling"]
