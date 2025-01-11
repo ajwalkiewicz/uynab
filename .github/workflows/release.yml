@@ -89,19 +89,24 @@ jobs:
   upload-gh-page:
     runs-on: ubuntu-latest
     needs: release-build
-    permissions:
-      id-token: write
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Build and release github page
+      - name: Setup environment
         run: |
           make setup
-          make docs_upload
+
+      - name: Upload to GitHub Pages
+        run: |
+          uv run mkdocs gh-deploy --force
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
