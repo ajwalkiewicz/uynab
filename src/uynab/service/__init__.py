@@ -1,8 +1,8 @@
-from .budget import BudgetService
-from .category import CategoryService
-from .payee import PayeeService
-from .service import YNABService
-from .transaction import TransactionService
+from uynab.service.budget import BudgetService
+from uynab.service.category import CategoryService
+from uynab.service.payee import PayeeService
+from uynab.service.service import YNABService
+from uynab.service.transaction import TransactionService
 
 __all__ = [
     "BudgetService",

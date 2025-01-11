@@ -62,7 +62,7 @@ class PayeeService(YNABService):
     """
 
     def get_all_payees(self, budget_id: UUID) -> list[Payee]:
-        """Fetch all payees for the specic budget
+        """Fetch all payees for the specific budget
 
         Args:
             budget_id (UUID): An ID for a budget from which all payees will be fetched

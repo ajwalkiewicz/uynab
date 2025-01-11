@@ -7,7 +7,7 @@ Classes:
     Account: Represents a financial account with various attributes such as id, name, type, balance, etc.
     ResponseDataAccount: Represents the response data for a single account.
     ResponseAccount: Represents the response for a single account.
-    ResonseDataAccounts: Represents the response data for a list of accounts.
+    ResponseDataAccounts: Represents the response data for a list of accounts.
     ResponseAccounts: Represents the response for a list of accounts.
     RequestAccount: Represents the request data for creating or updating an account.
     RequestDataAccount: Represents the request data wrapper for an account.
@@ -77,8 +77,8 @@ class ResponseAccount(BaseModel):
     data: ResponseDataAccount
 
 
-class ResonseDataAccounts(BaseModel):
-    """ResonseDataAccounts is a model representing the response data for a list of accounts."""
+class ResponseDataAccounts(BaseModel):
+    """ResponseDataAccounts is a model representing the response data for a list of accounts."""
 
     accounts: list[Account]
 
@@ -86,15 +86,30 @@ class ResonseDataAccounts(BaseModel):
 class ResponseAccounts(BaseModel):
     """ResponseAccounts is a model representing the response for a list of accounts."""
 
-    data: ResonseDataAccounts
+    data: ResponseDataAccounts
     server_knowledge: int
 
 
 class RequestAccount(BaseModel):
+    """
+    RequestAccount model representing an account request.
+    Attributes:
+        name (str): The name of the account.
+        type (str): The type of the account.
+        balance (int): The balance of the account.
+    """
+
     name: str
     type: str
     balance: int
 
 
 class RequestDataAccount(BaseModel):
+    """
+    RequestDataAccount is a data model that represents the request data for an account.
+
+    Attributes:
+        account (RequestAccount): An instance of RequestAccount containing the account details.
+    """
+
     account: RequestAccount

@@ -33,7 +33,7 @@ class YNABService:
         """Initialize service class
 
         Args:
-            client (Client): client for comunication with YNAB
+            client (Client): client for communication with YNAB
         """
         self.client = client
 

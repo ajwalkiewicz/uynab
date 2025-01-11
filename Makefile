@@ -1,7 +1,7 @@
 .PHONY: setup check-uv build test clean clean_venv clean_build clean_cache format type docs check docs_serve docs_upload
 
 setup: check-uv uv.lock
-	@echo "Setting up projcet..."
+	@echo "Setting up project..."
 	uv sync
 
 	
