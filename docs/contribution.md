@@ -35,7 +35,7 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 2. If you've added code that should be tested, add tests.
 3. If you've changed APIs, update the documentation.
 4. Ensure the test suite passes.
-5. Make sure your code lints (use [ruff]) formatter).
+5. Make sure your code lints (use [ruff] formatter).
 6. Issue that pull request!
 
 ## What do we need
@@ -56,7 +56,7 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 ## Same for any features
 
-Features or enhencements are welcome. Write an new [issue](https://github.com/ajwalkiewicz/uynab/issues) suggesting new feature or even better create your own pull request.
+Features or enhancements are welcome. Write an new [issue](https://github.com/ajwalkiewicz/uynab/issues) suggesting new feature or even better create your own pull request.
 
 ## Write bug reports with detail, background, and sample code
 
@@ -89,4 +89,4 @@ In cases where PEP's differ from `ruff`, always choose `ruff`!
 ## References
 
 This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md),
-and modified acordingly for this porject needs.
+and modified accordingly for this project needs.

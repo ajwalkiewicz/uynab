@@ -28,7 +28,8 @@
     "superfences",
     "testpaths",
     "venv",
-    "excinfo"
+    "excinfo",
+    "stackoverflow"
   ],
   "cSpell.ignorePaths": [
         ".vscode",

@@ -10,7 +10,7 @@ pip install uynab
 
 To communicate with YNAB API, you need to instantiate a client and YNAB API token.
 
-Token can be passed as an parameter to `YNABClient`: `api_token="YOUR_YNAB_API_TOKEN"`
+Token can be passed as a parameter to `YNABClient`: `api_token="YOUR_YNAB_API_TOKEN"`
 
 ```python
 from uynab.client import YNABClient
