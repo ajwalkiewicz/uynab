@@ -84,6 +84,6 @@ By following these steps, you will have a development environment that is consis
 ## References
 
 * Python: https://www.python.org/ 
-* Project managment tool: [UV](https://docs.astral.sh/uv/)
+* Project management tool: [UV](https://docs.astral.sh/uv/)
 * Formatter: [Ruff](https://docs.astral.sh/ruff/)
 * Testing: [Pytest](https://docs.pytest.org/en/stable/index.html)

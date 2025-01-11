@@ -1,7 +1,7 @@
 # Custom Dictionary Words
-subtransactions
-subtransaction
 savesubtransaction
+subtransaction
+subtransactions
 uynab
-YNAB
 Walkiewicz
+YNAB
