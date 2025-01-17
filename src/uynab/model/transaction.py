@@ -23,6 +23,8 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
+from uynab.model.utils import FlagColor
+
 
 class Subtransaction(BaseModel):
     """
@@ -85,7 +87,7 @@ class TransactionDetail(BaseModel):
         memo (Optional[str]): A memo or note associated with the transaction.
         cleared (Literal["cleared", "uncleared", "reconciled"]): The cleared status of the transaction.
         approved (bool): Indicates whether the transaction is approved.
-        flag_color (Optional[Literal["red", "orange", "yellow", "green", "blue", "purple"]]): The color of the flag associated with the transaction.
+        flag_color (Optional[FlagColor]): The color of the flag associated with the transaction.
         flag_name (Optional[str]): The name of the flag associated with the transaction.
         account_id (UUID): The unique identifier of the account associated with the transaction.
         payee_id (Optional[UUID]): The unique identifier of the payee associated with the transaction.
@@ -110,9 +112,7 @@ class TransactionDetail(BaseModel):
     memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[
-        Literal["red", "orange", "yellow", "green", "blue", "purple"]
-    ] = None
+    flag_color: Optional[FlagColor] = None
     flag_name: Optional[str] = None
     account_id: UUID
     payee_id: Optional[UUID] = None
@@ -142,7 +142,7 @@ class TransactionSummary(BaseModel):
         memo (Optional[str]): A memo or note associated with the transaction.
         cleared (Literal["cleared", "uncleared", "reconciled"]): The cleared status of the transaction.
         approved (bool): Indicates whether the transaction is approved.
-        flag_color (Optional[Literal["red", "orange", "yellow", "green", "blue", "purple"]]): The color of the flag associated with the transaction.
+        flag_color (Optional[FlagColor]): The color of the flag associated with the transaction.
         flag_name (Optional[str]): The name of the flag associated with the transaction.
         account_id (UUID): The unique identifier of the account associated with the transaction.
         payee_id (Optional[UUID]): The unique identifier of the payee associated with the transaction.
@@ -163,9 +163,7 @@ class TransactionSummary(BaseModel):
     memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[
-        Literal["red", "orange", "yellow", "green", "blue", "purple"]
-    ] = None
+    flag_color: Optional[FlagColor] = None
     flag_name: Optional[str] = None
     account_id: UUID
     payee_id: Optional[UUID] = None
@@ -208,9 +206,7 @@ class NewTransaction(BaseModel):
     memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[
-        Literal["red", "orange", "yellow", "green", "blue", "purple"]
-    ] = None
+    flag_color: Optional[FlagColor] = None
     import_id: Optional[str] = None
     subtransactions: list[SaveSubTransaction]
 
@@ -227,9 +223,7 @@ class SaveTransactionWithIdOrImportId(BaseModel):
     memo: Optional[str] = None
     cleared: Literal["cleared", "uncleared", "reconciled"]
     approved: bool
-    flag_color: Optional[
-        Literal["red", "orange", "yellow", "green", "blue", "purple"]
-    ] = None
+    flag_color: Optional[FlagColor] = None
     subtransactions: list[SaveSubTransaction]
 
 

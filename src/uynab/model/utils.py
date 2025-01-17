@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import StrEnum
 from typing import Optional
 
 from pydantic import BaseModel
@@ -67,3 +68,23 @@ class Month(BaseModel):
     age_of_money: int
     deleted: bool
     categories: list[Category]
+
+
+class FlagColor(StrEnum):
+    """A class used to represent the color of a flag.
+
+    Attributes:
+        RED: A red flag.
+        ORANGE: An orange flag.
+        YELLOW: A yellow flag.
+        GREEN: A green flag.
+        BLUE: A blue flag.
+        PURPLE: A purple flag.
+    """
+
+    RED = "red"
+    ORANGE = "orange"
+    YELLOW = "yellow"
+    GREEN = "green"
+    BLUE = "blue"
+    PURPLE = "purple"
