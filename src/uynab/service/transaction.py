@@ -86,9 +86,9 @@ class TransactionService(YNABService):
         Returns:
             TransactionDetail: The created transaction object.
         """
-        data: dict[str, list[dict[str, Any]]] = {"transactions": []}
+        data: dict[str, list[str]] = {"transactions": []}
         for transaction in transactions:
-            data["transactions"].append(transaction.model_dump())
+            data["transactions"].append(transaction.model_dump_json())
 
         response = self.perform_api_call(
             ResponseTransactions,
@@ -111,9 +111,9 @@ class TransactionService(YNABService):
         Returns:
             list[TransactionDetail]: A list of updated transaction details.
         """
-        data: dict[str, list[dict[str, Any]]] = {"transactions": []}
+        data: dict[str, list[str]] = {"transactions": []}
         for transaction in transactions:
-            data["transactions"].append(transaction.model_dump())
+            data["transactions"].append(transaction.model_dump_json())
 
         response = self.perform_api_call(
             ResponseSaveTransactions,
@@ -137,7 +137,7 @@ class TransactionService(YNABService):
         Returns:
             Transaction: The updated transaction object.
         """
-        data: dict[str, dict[Any, Any]] = {"transaction": transaction.model_dump()}
+        data: dict[str, str] = {"transaction": transaction.model_dump_json()}
 
         response = self.perform_api_call(
             ResponseTransaction,

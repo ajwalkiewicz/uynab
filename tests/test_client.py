@@ -32,7 +32,11 @@ def test_client_request_success(mock_request, ynab_client):
 
     assert response == {"data": "test"}
     mock_request.assert_called_once_with(
-        "GET", "https://api.youneedabudget.com/v1/test_endpoint", params=None, json=None
+        "GET",
+        "https://api.youneedabudget.com/v1/test_endpoint",
+        params=None,
+        json=None,
+        timeout=None,
     )
 
 
@@ -52,7 +56,11 @@ def test_client_request_failure(mock_request, ynab_client):
 
     assert str(excinfo.value) == "Error 404: TestError - Test detail"
     mock_request.assert_called_once_with(
-        "GET", "https://api.youneedabudget.com/v1/test_endpoint", params=None, json=None
+        "GET",
+        "https://api.youneedabudget.com/v1/test_endpoint",
+        params=None,
+        json=None,
+        timeout=None,
     )
 
 
@@ -70,5 +78,9 @@ def test_client_request_failure_unknown_error(mock_request, ynab_client):
 
     assert str(excinfo.value) == "Error 500: Unknown name - No details"
     mock_request.assert_called_once_with(
-        "GET", "https://api.youneedabudget.com/v1/test_endpoint", params=None, json=None
+        "GET",
+        "https://api.youneedabudget.com/v1/test_endpoint",
+        params=None,
+        json=None,
+        timeout=None,
     )

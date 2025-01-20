@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from pydantic import ValidationError
 
@@ -108,3 +110,11 @@ def test_response_save_transactions(transaction_detail_data):
     assert response_save_transactions.data.transactions[0] == transaction_detail
     assert response_save_transactions.data.duplicate_import_ids == []
     assert response_save_transactions.data.server_knowledge == 1
+
+
+def test_transaction_serialization(transaction_detail_data, transaction_detail_id):
+    transaction_detail = TransactionDetail(**transaction_detail_data)
+    transaction_json = json.loads(transaction_detail.model_dump_json())
+    assert transaction_json["id"] == transaction_detail_id
+    assert transaction_json["date"] == "2024-12-21"
+    assert transaction_json["flag_color"] == "green"

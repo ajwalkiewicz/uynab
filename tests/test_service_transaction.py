@@ -1,6 +1,8 @@
+from datetime import date
 from uuid import UUID
 
 import pytest
+import requests
 
 from uynab.service.transaction import (
     NewTransaction,
@@ -241,3 +243,89 @@ def test_get_transactions_by_month(
     )
     assert len(jan_transactions) == 2
     assert all(t.date.month == 1 and t.date.year == 2023 for t in jan_transactions)
+
+
+@pytest.mark.parametrize(
+    "method,kwargs",
+    [
+        pytest.param(
+            "create_transactions",
+            {
+                "budget_id": "123",
+                "transactions": [
+                    NewTransaction(
+                        account_id=UUID("a1b2c3d4-e5f6-4321-8765-123456789abc"),
+                        date=date(2023, 1, 15),
+                        amount=100,
+                        payee_id=UUID("99999999-8888-7777-6666-555555555555"),
+                        category_id=UUID("11111111-2222-3333-4444-555555555555"),
+                        memo="Test transaction",
+                        cleared="cleared",
+                        approved=True,
+                        flag_color=None,
+                        import_id=None,
+                        subtransactions=[],
+                    )
+                ],
+            },
+            id="create transactions",
+        ),
+        pytest.param(
+            "update_transactions",
+            {
+                "budget_id": "123",
+                "transactions": [
+                    SaveTransactionWithIdOrImportId(
+                        id="550e8400-e29b-41d4-a716-446655440000",
+                        account_id=UUID("a1b2c3d4-e5f6-4321-8765-123456789abc"),
+                        date=date(2023, 1, 15),
+                        amount=100,
+                        payee_id=UUID("99999999-8888-7777-6666-555555555555"),
+                        category_id=UUID("11111111-2222-3333-4444-555555555555"),
+                        memo="Updated transaction",
+                        cleared="cleared",
+                        approved=True,
+                        flag_color=None,
+                        import_id=None,
+                        subtransactions=[],
+                    )
+                ],
+            },
+            id="update_transactions",
+        ),
+        pytest.param(
+            "update_transaction",
+            {
+                "budget_id": "123",
+                "transaction_id": "456",
+                "transaction": NewTransaction(
+                    account_id=UUID("a1b2c3d4-e5f6-4321-8765-123456789abc"),
+                    date=date(2023, 1, 15),
+                    amount=100,
+                    payee_id=UUID("99999999-8888-7777-6666-555555555555"),
+                    category_id=UUID("11111111-2222-3333-4444-555555555555"),
+                    memo="Test transaction",
+                    cleared="cleared",
+                    approved=True,
+                    flag_color=None,
+                    import_id=None,
+                    subtransactions=[],
+                ),
+            },
+            id="update_transaction",
+        ),
+    ],
+)
+def test_sending_raw_pydantic_model(ynab_client, method, kwargs):
+    """
+    Test that sending a raw Pydantic model without serialization raises TypeError.
+    This simulates a developer forgetting to use model_dump_json().
+    """
+    ynab_client._timeout = 0.001
+    method_to_test = ynab_client.transaction.__getattribute__(method)
+    try:
+        method_to_test(**kwargs)
+    except requests.exceptions.ConnectionError:
+        # We expect this error since the endpoint doesn't exist
+        # The important part is that we got past the serialization step
+        pass

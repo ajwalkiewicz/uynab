@@ -36,7 +36,7 @@ class AccountService(YNABService):
             ResponseAccount,
             "POST",
             f"budgets/{budget_id}/accounts",
-            data=RequestDataAccount(**data).model_dump(),
+            data=RequestDataAccount(**data).model_dump_json(),
         )
         return response.data.account
 
