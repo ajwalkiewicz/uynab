@@ -7,7 +7,7 @@ Classes:
     YNABService: A service class to handle communication with YNAB.
 """
 
-from typing import Callable, TypeVar
+from typing import Any, Callable, TypeVar
 
 from pydantic import ValidationError
 
@@ -43,7 +43,7 @@ class YNABService:
         method: str,
         endpoint: str,
         params: dict | None = None,
-        data: dict | None = None,
+        data: Any | None = None,
     ) -> Model:
         """
         Perform an API call using the specified method and endpoint, and return the response as a model instance.
@@ -52,7 +52,7 @@ class YNABService:
             method (str): The HTTP method to use for the API call (e.g., 'GET', 'POST').
             endpoint (str): The API endpoint to call.
             params (dict, optional): The query parameters to send with the API call. Defaults to None.
-            data (dict, optional): The data to send with the API call. Defaults to None.
+            data (Any, optional): The data to send with the API call. Defaults to None.
         Returns:
             Model: An instance of the model class populated with the response data.
         Raises:

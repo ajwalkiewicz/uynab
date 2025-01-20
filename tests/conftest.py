@@ -8,6 +8,7 @@ import pytest
 from uynab.client import YNABClient
 from uynab.model.category import Category, CategoryGroup
 from uynab.model.payee import Payee
+from uynab.model.utils import FlagColor
 
 
 @pytest.fixture
@@ -149,7 +150,7 @@ def transaction_detail_data(subtransaction_data, transaction_detail_id):
         "memo": "test memo",
         "cleared": "cleared",
         "approved": True,
-        "flag_color": None,
+        "flag_color": FlagColor.GREEN,
         "flag_name": None,
         "account_id": "8d267248-7a94-467f-a158-93d609f7adf6",
         "payee_id": "ce09c739-503b-4953-b594-cffd35c2cebd",

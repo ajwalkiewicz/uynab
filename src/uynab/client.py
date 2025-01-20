@@ -1,3 +1,5 @@
+from typing import Any
+
 import requests
 
 from uynab.abstract.client import Client
@@ -40,16 +42,19 @@ class YNABClient(Client):
         self._payee = PayeeService(self)
         self._transaction = TransactionService(self)
         self._verbose = Config.VERBOSE
+        self._timeout: float | None = None
 
     def request(
         self,
         method: str,
         endpoint: str,
         params: dict | None = None,
-        data: dict | None = None,
+        data: Any | None = None,
     ) -> dict:
         url = f"{self.base_url}/{endpoint}"
-        response = self.session.request(method, url, params=params, json=data)
+        response = self.session.request(
+            method, url, params=params, json=data, timeout=self._timeout
+        )
         self._handle_response(response)
         return response.json()
 

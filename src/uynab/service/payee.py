@@ -112,6 +112,6 @@ class PayeeService(YNABService):
             ResponsePayee,
             "PATCH",
             f"budgets/{budget_id}/payees/{payee_id}",
-            data=RequestDataPayee(**data).model_dump(),
+            data=RequestDataPayee(**data).model_dump_json(),
         )
         return response.data.payee
