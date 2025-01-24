@@ -735,6 +735,7 @@ name = "uynab"
 version = "0.1.2"
 source = { editable = "." }
 dependencies = [
+    { name = "click" },
     { name = "pydantic" },
     { name = "requests" },
 ]
@@ -753,6 +754,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "click", specifier = ">=8.1.7" },
     { name = "pydantic", specifier = ">=2.10.3" },
     { name = "requests", specifier = ">=2.32.3" },
 ]
