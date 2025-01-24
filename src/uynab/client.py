@@ -4,6 +4,7 @@ import requests
 
 from uynab.abstract.client import Client
 from uynab.config import Config
+from uynab.service.account import AccountService
 from uynab.service.budget import BudgetService
 from uynab.service.category import CategoryService
 from uynab.service.payee import PayeeService
@@ -24,6 +25,7 @@ class YNABClient(Client):
             Makes an HTTP request to the YNAB API.
 
     Properties:
+        account (AccountService): Returns the account service.
         budget (BudgetService): Returns the budget service.
         category (CategoryService): Returns the category service.
         payee (PayeeService): Returns the payee service.
@@ -37,6 +39,7 @@ class YNABClient(Client):
         self.base_url = base_url or Config.BASE_URL
         self.session = requests.Session()
         self.session.headers.update({"Authorization": f"Bearer {self.api_token}"})
+        self._account = AccountService(self)
         self._budget = BudgetService(self)
         self._category = CategoryService(self)
         self._payee = PayeeService(self)
@@ -63,6 +66,10 @@ class YNABClient(Client):
             raise APIClientException(
                 response.status_code, response.json().get("error", {})
             )
+
+    @property
+    def account(self) -> AccountService:
+        return self._account
 
     @property
     def budget(self) -> BudgetService:

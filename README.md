@@ -20,6 +20,8 @@ pip install uynab
 
 ## Usage
 
+### Code
+
 Here's a basic example of how to use the SDK:
 
 ```python
@@ -30,6 +32,12 @@ client = YNABClient(api_token="YOUR_YNAB_API_TOKEN")
 # Get all budgets
 budgets = client.budget.get_all_budgets()
 print(budgets)
+```
+
+### Standalone
+
+```sh
+python -m uynab budget list
 ```
 
 ## Documentation

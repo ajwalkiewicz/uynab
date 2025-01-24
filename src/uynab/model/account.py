@@ -81,13 +81,13 @@ class ResponseDataAccounts(BaseModel):
     """ResponseDataAccounts is a model representing the response data for a list of accounts."""
 
     accounts: list[Account]
+    server_knowledge: int
 
 
 class ResponseAccounts(BaseModel):
     """ResponseAccounts is a model representing the response for a list of accounts."""
 
     data: ResponseDataAccounts
-    server_knowledge: int
 
 
 class RequestAccount(BaseModel):

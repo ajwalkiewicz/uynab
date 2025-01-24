@@ -5,9 +5,11 @@ import pytest
 from dotenv import load_dotenv
 
 from uynab.client import YNABClient
+from uynab.model.account import Account
 from uynab.model.category import CategoryGroup
 from uynab.model.payee import Payee
 from uynab.model.transaction import TransactionDetail
+from uynab.service.account import AccountService
 from uynab.service.budget import BudgetService
 from uynab.service.category import CategoryService
 from uynab.service.payee import PayeeService
@@ -24,6 +26,14 @@ def client():
 @pytest.fixture
 def budget_id(client):
     return os.getenv("BUDGET_ID")
+
+
+@pytest.mark.slow
+def test_account(client, budget_id):
+    account_service = AccountService(client=client)
+    account = account_service.get_all_accounts(budget_id=budget_id)
+    assert account is not None
+    assert isinstance(account[0], Account)
 
 
 @pytest.mark.slow
@@ -50,7 +60,6 @@ def test_category_service(client, budget_id):
     assert isinstance(categories[0], CategoryGroup)
 
 
-# @pytest.mark.skip("To be done")
 @pytest.mark.slow
 def test_transaction(client, budget_id):
     transaction_service = TransactionService(client=client)
