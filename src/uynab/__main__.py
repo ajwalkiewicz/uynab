@@ -22,15 +22,8 @@ def get_string_display_width(s: str) -> int:
     """
     width = 0
     for char in s:
-        # Get the East Asian Width property
-        eaw = unicodedata.east_asian_width(char)
-        # Handle wide characters (including emoji)
-        if eaw in ("F", "W"):  # Full-width, Wide
-            width += 2
-        elif eaw in ("N", "Na", "A"):  # Narrow and Ambiguous
-            width += 1
-        else:  # Handle everything else as width 1
-            width += 1
+        east_asian_width = unicodedata.east_asian_width(char)
+        width += 2 if east_asian_width in ("F", "W") else 1
     return width
 
 
@@ -89,28 +82,6 @@ def format_table(
     return "\n".join(lines)
 
 
-def format_category_groups(category_groups: dict[str, list[list[str]]]) -> str:
-    """
-    Format category groups into a table, properly handling Unicode characters.
-
-    Args:
-        category_groups: Dictionary of category groups and their categories
-
-    Returns:
-        Formatted table as string
-    """
-    output = []
-    headers = ["Category Name", "Category ID"]
-
-    for group_name, categories in category_groups.items():
-        # Add group header
-        output.append(format_table([[f"Category Group: {group_name}", ""]]))
-        # Add categories
-        output.append(format_table(categories, headers))
-
-    return "\n".join(output)
-
-
 def parse_all_budget_list(budgets: list[BudgetSummary]) -> list[tuple]:
     """
     Convert a list of BudgetSummary objects into a list of tuples containing budget names and IDs.
@@ -121,10 +92,7 @@ def parse_all_budget_list(budgets: list[BudgetSummary]) -> list[tuple]:
     Returns:
         list[tuple[str, UUID]]: List of tuples where each tuple contains (budget_name, budget_id)
     """
-    result = []
-    for budget in budgets:
-        result.append((budget.name, budget.id))
-    return result
+    return [(budget.name, budget.id) for budget in budgets]
 
 
 def parse_all_category_list(categories: list[CategoryGroup]) -> list[tuple]:
@@ -162,10 +130,7 @@ def parse_all_account_list(accounts: list[Account]) -> list[tuple]:
             - account balance (float)
             - account ID (UUID)
     """
-    result = []
-    for account in accounts:
-        result.append((account.name, account.balance / 1000, account.id))
-    return result
+    return [(account.name, account.balance / 1000, account.id) for account in accounts]
 
 
 def get_ynab_client() -> YNABClient:
