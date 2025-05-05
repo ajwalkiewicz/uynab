@@ -1,6 +1,8 @@
+import os
 from typing import Any
 
 import requests
+from dotenv import load_dotenv
 
 from uynab.abstract.client import Client
 from uynab.config import Config
@@ -35,7 +37,10 @@ class YNABClient(Client):
     def __init__(
         self, api_token: None | str = None, base_url: None | str = None
     ) -> None:
-        self.api_token = api_token or Config.API_TOKEN
+        self.api_token = api_token or os.getenv(Config.API_TOKEN_NAME)
+        if self.api_token is None:
+            load_dotenv()
+            self.api_token = os.getenv(Config.API_TOKEN_NAME)
         self.base_url = base_url or Config.BASE_URL
         self.session = requests.Session()
         self.session.headers.update({"Authorization": f"Bearer {self.api_token}"})
@@ -45,7 +50,7 @@ class YNABClient(Client):
         self._payee = PayeeService(self)
         self._transaction = TransactionService(self)
         self._verbose = Config.VERBOSE
-        self._timeout: float | None = None
+        self._timeout = Config.TIMEOUT
 
     def request(
         self,
@@ -66,6 +71,15 @@ class YNABClient(Client):
             raise APIClientException(
                 response.status_code, response.json().get("error", {})
             )
+
+    def set_token(self, new_token: str) -> None:
+        """Safely update the API token after the client instance is created.
+
+        Args:
+            new_token: New API token.
+        """
+        self.api_token = new_token
+        self.session.headers.update({"Authorization": f"Bearer {self.api_token}"})
 
     @property
     def account(self) -> AccountService:

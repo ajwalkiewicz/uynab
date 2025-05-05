@@ -40,6 +40,19 @@ print(budgets)
 python -m uynab budget list
 ```
 
+## Storing API Token
+
+You can store YNAB API token in a environmental variable: `YNAB_API_TOKEN`.
+
+For example:
+
+```bash
+export YNAB_API_TOKEN='<your token>'
+```
+
+For security reasons you can also store API token in the `.env` file. Format is the 
+same: `YNAB_API_TOKEN='<your token>'`
+
 ## Documentation
 
 For detailed documentation, visit the [docs](https://ajwalkiewicz.github.io/uynab/).
