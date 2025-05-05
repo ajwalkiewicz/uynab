@@ -42,7 +42,7 @@ python -m uynab budget list
 
 ## Storing API Token
 
-You can store YNAB API token in a environmental variable: `YNAB_API_TOKEN`.
+You can store YNAB API token in an environmental variable: `YNAB_API_TOKEN`.
 
 For example:
 
