@@ -251,6 +251,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storing-api-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storing API Token
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -570,6 +579,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storing-api-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storing API Token
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       Documentation
@@ -639,6 +657,13 @@ allowing you to manage budgets, categories, transactions, and more.</p>
 <h3 id="standalone">Standalone</h3>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>-m<span class="w"> </span>uynab<span class="w"> </span>budget<span class="w"> </span>list
 </span></code></pre></div>
+<h2 id="storing-api-token">Storing API Token</h2>
+<p>You can store YNAB API token in an environmental variable: <code>YNAB_API_TOKEN</code>.</p>
+<p>For example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">YNAB_API_TOKEN</span><span class="o">=</span><span class="s1">&#39;&lt;your token&gt;&#39;</span>
+</span></code></pre></div>
+<p>For security reasons you can also store API token in a <code>.env</code> file. The application auto-loads the <code>.env</code> file from the root directory if it exists. Format is the same: <code>YNAB_API_TOKEN='&lt;your token&gt;'</code>.</p>
+<p>Note: Environment variables defined in your system will override the entries from the <code>.env</code> file.</p>
 <h2 id="documentation">Documentation</h2>
 <p>For detailed documentation, visit the <a href="https://ajwalkiewicz.github.io/uynab/">docs</a>.</p>
 <h2 id="contributing">Contributing</h2>
