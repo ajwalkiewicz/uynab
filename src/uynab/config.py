@@ -1,7 +1,5 @@
-import os
-
-
 class Config:
     BASE_URL = "https://api.ynab.com/v1"
-    API_TOKEN = os.getenv("YNAB_API_TOKEN")
+    API_TOKEN_NAME = "YNAB_API_TOKEN"
     VERBOSE = False
+    TIMEOUT: float | None = None

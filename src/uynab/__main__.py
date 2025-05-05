@@ -1,3 +1,4 @@
+import json
 import unicodedata
 from typing import Any, Sequence
 from uuid import UUID
@@ -8,6 +9,7 @@ from uynab.client import YNABClient
 from uynab.model.account import Account
 from uynab.model.budget import BudgetSummary
 from uynab.model.category import CategoryGroup
+from uynab.model.payee import Payee
 
 
 def get_string_display_width(s: str) -> int:
@@ -133,12 +135,17 @@ def parse_all_account_list(accounts: list[Account]) -> list[tuple]:
     return [(account.name, account.balance / 1000, account.id) for account in accounts]
 
 
+def parse_all_payee_list(payees: list[Payee]) -> list[tuple]:
+    return [(payee.name, payee.id, payee.transfer_account_id) for payee in payees]
+
+
 def get_ynab_client() -> YNABClient:
     """Get a YNABClient instance, prompting for an API token if not already set."""
     client = YNABClient()
 
     if client.api_token is None:
-        client.api_token = click.prompt("Please provide a token", type=str)
+        token = click.prompt("Please provide a token", type=str)
+        client.set_token(token)
 
     return client
 
@@ -202,7 +209,7 @@ def category():
     "--budget_id",
     required=True,
     type=UUID,
-    help="ID of the budget to list categories from",
+    help="ID of the budget to list categories from.",
 )
 def list_categories(budget_id):
     """List categories for a specific budget."""
@@ -211,6 +218,38 @@ def list_categories(budget_id):
     all_categories = client.category.get_all_categories(budget_id)
     to_print = parse_all_category_list(all_categories)
     result = format_table(to_print, ["Category Name", "Category ID"])
+
+    click.echo(result)
+
+
+@cli.group()
+def payee():
+    """Payees-related commands."""
+    pass
+
+
+@payee.command(name="list")
+@click.option(
+    "--budget_id", required=True, type=UUID, help="ID of a budget to list payees from."
+)
+@click.option(
+    "--json",
+    "json_output",
+    required=False,
+    is_flag=True,
+    help="Print output in JSON format",
+)
+def list_payees(budget_id, json_output):
+    """List payees for a specific budget."""
+    client = get_ynab_client()
+
+    all_payees = client.payee.get_all_payees(budget_id)
+
+    if json_output:
+        result = json.dumps([payee.model_dump(mode="json") for payee in all_payees])
+    else:
+        to_print = parse_all_payee_list(all_payees)
+        result = format_table(to_print, ["Payee Name", "ID", "Transfer Account ID"])
 
     click.echo(result)
 

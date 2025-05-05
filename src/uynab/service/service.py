@@ -47,14 +47,17 @@ class YNABService:
     ) -> Model:
         """
         Perform an API call using the specified method and endpoint, and return the response as a model instance.
+
         Args:
             model (Model): The model class to instantiate with the response data.
             method (str): The HTTP method to use for the API call (e.g., 'GET', 'POST').
             endpoint (str): The API endpoint to call.
             params (dict, optional): The query parameters to send with the API call. Defaults to None.
             data (Any, optional): The data to send with the API call. Defaults to None.
+
         Returns:
             Model: An instance of the model class populated with the response data.
+
         Raises:
             ResponseError: If the response data cannot be validated against the model.
         """
