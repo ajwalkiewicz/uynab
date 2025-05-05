@@ -50,8 +50,9 @@ For example:
 export YNAB_API_TOKEN='<your token>'
 ```
 
-For security reasons you can also store API token in the `.env` file. Format is the 
-same: `YNAB_API_TOKEN='<your token>'`
+For security reasons you can also store API token in a `.env` file. The application auto-loads the `.env` file from the root directory if it exists. Format is the same: `YNAB_API_TOKEN='<your token>'`.
+
+Note: Environment variables defined in your system will override the entries from the `.env` file.
 
 ## Documentation
 
