@@ -1,6 +1,6 @@
 {
-    "makefile.configureOnOpen": false,
-    "[python]": {
+  "makefile.configureOnOpen": false,
+  "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
